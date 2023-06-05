@@ -2,6 +2,10 @@
 
 Este é um projeto de um site de administração acadêmica desenvolvido em React.js. O objetivo do projeto é ajudar na administração de escolas e faculdades, oferecendo recursos para gerenciamento de cursos, alunos e outras funcionalidades relacionadas.
 
+## Link para o site ACADEMICO:
+
+[https://academico-six.vercel.app/]
+
 ## Funcionalidades
 
 - Cadastro e edição de cursos
