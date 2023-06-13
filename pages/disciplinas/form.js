@@ -18,18 +18,32 @@ const form = () => {
     window.localStorage.setItem("disciplinas", JSON.stringify(disciplinas));
     push("/disciplinas");
   }
+  const validator = {
+    required: "O campo é obrigatório",
+    minLength: {
+      value: 3,
+      message: "A quantidade de caracteres mínima é 3",
+    },
+    maxLength: {
+      value: 200,
+      message: "A quantidade de caracteres máxima é 200",
+    },
+  };
+  const validatorCurso = {
+    required: "O campo é obrigatório",
+  };
 
   return (
     <Pagina titulo="Disciplinas">
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome: </Form.Label>
-          <Form.Control type="text" {...register("nome")} />
+          <Form.Control type="text" {...register("nome", validator)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="cursos">
           <Form.Label>Cursos: </Form.Label>
-          <Form.Select {...register("cursos")}>
+          <Form.Select {...register("cursos", validatorCurso)}>
             <option></option>
             <option value="engenharia-civil">Engenharia Civil</option>
             <option value="engenharia-computacao">

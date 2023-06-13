@@ -17,23 +17,34 @@ const form = () => {
     window.localStorage.setItem("cursos", JSON.stringify(cursos));
     push("/cursos");
   }
+  const validator = {
+    required: "O campo é obrigatório",
+    minLength: {
+      value: 3,
+      message: "A quantidade de caracteres mínima é 3",
+    },
+    maxLength: {
+      value: 2000,
+      message: "A quantidade de caracteres máxima é 2000",
+    },
+  };
 
   return (
     <Pagina titulo="Curso">
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome: </Form.Label>
-          <Form.Control type="text" {...register("nome")} />
+          <Form.Control type="text" {...register("nome", validator)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="duracao">
           <Form.Label>Duração: </Form.Label>
-          <Form.Control type="text" {...register("duracao")} />
+          <Form.Control type="text" {...register("duracao", validator)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="modalidade">
           <Form.Label>Modalidade: </Form.Label>
-          <Form.Control type="text" {...register("modalidade")} />
+          <Form.Control type="text" {...register("modalidade", validator)} />
         </Form.Group>
 
         <div className="text-center">
