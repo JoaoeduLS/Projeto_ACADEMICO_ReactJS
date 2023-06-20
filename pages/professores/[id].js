@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { BsCheckLg } from "react-icons/bs";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { mask } from "remask";
 
 const form = () => {
   const { push, query } = useRouter();
@@ -33,6 +34,13 @@ const form = () => {
     push("/professores");
   }
 
+  function handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    const mascara = event.target.getAttribute("mask");
+    setValue(name, mask(value, mascara));
+  }
+
   return (
     <Pagina titulo="Professores">
       <Form>
@@ -43,7 +51,13 @@ const form = () => {
 
         <Form.Group className="mb-3" controlId="CPF">
           <Form.Label>CPF: </Form.Label>
-          <Form.Control type="bigint" {...register("CPF")} />
+          <Form.Control
+            type="text"
+            placeholder="123.456.789.09"
+            mask="999.999.999-99"
+            {...register("CPF")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="matricula">
@@ -53,7 +67,13 @@ const form = () => {
 
         <Form.Group className="mb-3" controlId="salario">
           <Form.Label>Salario: </Form.Label>
-          <Form.Control type="text" {...register("salario")} />
+          <Form.Control
+            type="text"
+            placeholder="R$ 1.234,56"
+            mask="R$ 99.999,99"
+            {...register("salario")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
@@ -63,16 +83,28 @@ const form = () => {
 
         <Form.Group className="mb-3" controlId="telefone">
           <Form.Label>Telefone: </Form.Label>
-          <Form.Control type="tel" {...register("telefone")} />
+          <Form.Control
+            type="tel"
+            placeholder="(99) 99999-9999"
+            mask="(99) 99999-9999"
+            {...register("telefone")}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="cep">
           <Form.Label>Cep: </Form.Label>
-          <Form.Control type="text" {...register("cep")} />
+          <Form.Control
+            type="text"
+            placeholder="12345-678"
+            mask="99999-999"
+            {...register("cep")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="logradouro">
           <Form.Label>Logradouro: </Form.Label>
-          <Form.Control type="text" {...register("logradouro")} />
+          <Form.Control {...register("logradouro")} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="complemento">
@@ -89,6 +121,7 @@ const form = () => {
           <Form.Label>Bairro: </Form.Label>
           <Form.Control type="text" {...register("bairro")} />
         </Form.Group>
+
         <div className="text-center">
           <Button variant="dark" onClick={handleSubmit(salvar)}>
             <BsCheckLg className="me-2" />

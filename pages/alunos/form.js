@@ -6,16 +6,23 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { BsCheckLg } from "react-icons/bs";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { mask } from "remask";
 
 const form = () => {
   const { push } = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   function salvar(dados) {
     const alunos = JSON.parse(window.localStorage.getItem("alunos")) || [];
     alunos.push(dados);
     window.localStorage.setItem("alunos", JSON.stringify(alunos));
     push("/alunos");
+  }
+  function handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    const mascara = event.target.getAttribute("mask");
+    setValue(name, mask(value, mascara));
   }
 
   return (
@@ -28,7 +35,13 @@ const form = () => {
 
         <Form.Group className="mb-3" controlId="CPF">
           <Form.Label>CPF: </Form.Label>
-          <Form.Control type="bigint" {...register("CPF")} />
+          <Form.Control
+            type="text"
+            placeholder="123.456.789.09"
+            mask="999.999.999-99"
+            {...register("CPF")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="matricula">
@@ -43,12 +56,24 @@ const form = () => {
 
         <Form.Group className="mb-3" controlId="telefone">
           <Form.Label>Telefone: </Form.Label>
-          <Form.Control type="tel" {...register("telefone")} />
+          <Form.Control
+            type="tel"
+            placeholder="(99) 99999-9999"
+            mask="(99) 99999-9999"
+            {...register("telefone")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="cep">
           <Form.Label>Cep: </Form.Label>
-          <Form.Control type="text" {...register("cep")} />
+          <Form.Control
+            type="text"
+            placeholder="12345-678"
+            mask="99999-999"
+            {...register("cep")}
+            onChange={handleChange}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="logradouro">
